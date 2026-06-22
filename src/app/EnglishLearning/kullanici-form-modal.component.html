@@ -1,0 +1,56 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ isEditMode ? 'Kullanıcı Güncelle' : 'Yeni Kullanıcı Ekle' }}</h2>
+      <button class="close-btn" (click)="onClose()" [disabled]="loading">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="server-error" *ngIf="serverError">
+          {{ serverError }}
+        </div>
+        <!-- İsim Alanı -->
+        <div class="form-group">
+          <label for="isim">İsim *</label>
+          <input
+            id="isim"
+            type="text"
+            [(ngModel)]="formData.isim"
+            name="isim"
+            placeholder="Kullanıcı adını girin"
+            [disabled]="loading"
+            class="form-input"
+            [class.error]="errors['isim']"
+          >
+          <span class="error-message" *ngIf="errors['isim']">{{ errors['isim'] }}</span>
+        </div>
+
+        <!-- Email Alanı -->
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="formData.email"
+            name="email"
+            placeholder="Email adresini girin"
+            [disabled]="loading"
+            class="form-input"
+            [class.error]="errors['email']"
+          >
+          <span class="error-message" *ngIf="errors['email']">{{ errors['email'] }}</span>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="onClose()" [disabled]="loading">
+        İptal
+      </button>
+      <button class="btn btn-submit" (click)="onSubmit()" [disabled]="loading">
+        {{ loading ? 'Kaydediliyor...' : 'Kaydet' }}
+      </button>
+    </div>
+  </div>
+</div>

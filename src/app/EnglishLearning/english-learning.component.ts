@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EnglishLearningService, Kullanici } from '../services/english-learning.service';
+import { KullaniciFormModalComponent, FormData } from './kullanici-form-modal.component';
 
 @Component({
   selector: 'app-english-learning',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, KullaniciFormModalComponent],
   templateUrl: './english-learning.component.html',
   styleUrls: ['./english-learning.component.scss']
 })
@@ -15,6 +16,15 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   filteredUsers: Kullanici[] = [];
   loading = false;
   error: string | null = null;
+  deleting = false;
+  deleteId: number | null = null;
+  modalError: string | null = null;
+
+  // Modal state'leri
+  isModalOpen = false;
+  isEditMode = false;
+  selectedKullanici: Kullanici | null = null;
+  isSaving = false;
   
   // Arama ve filtre değişkenleri
   searchName = '';
@@ -38,12 +48,37 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.search();
-    this.startCountdown();
+   // this.startCountdown();
   }
 
   ngOnDestroy(): void {
     if (this.countdownInterval) {
       clearInterval(this.countdownInterval);
+    }
+  }
+
+  deleteUser(id: number): void {
+    if (confirm(`ID: ${id} olan kullanıcıyı silmek istediğinize emin misiniz?`)) {
+      this.deleting = true;
+      this.deleteId = id;
+      this.svc.deleteKullanici(id).subscribe({
+        next: (res) => {
+          if (res && (res as any).success === false) {
+            this.error = (res as any).message || 'Kullanıcı silinemedi.';
+          } else {
+            this.error = null;
+            this.search();
+          }
+          this.deleting = false;
+          this.deleteId = null;
+        },
+        error: (err) => {
+          console.error('Delete error', err);
+          this.error = err?.error?.message || err?.message || 'Silme işlemi sırasında hata oluştu.';
+          this.deleting = false;
+          this.deleteId = null;
+        }
+      });
     }
   }
 
@@ -58,7 +93,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
           this.filteredUsers = [];
         } else {
           this.users = res.data || [];
-          this.filteredUsers = res.data || [];
+          this.filteredUsers = [...this.users];
           this.lastRefreshTime = new Date();
         }
         this.loading = false;
@@ -114,7 +149,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   clearSearch(): void {
     this.searchName = '';
     this.filters = { id: '', isim: '', email: '', kayitTarihi: '' };
-    this.filteredUsers = this.users;
+    this.filteredUsers = [...this.users];
   }
 
   refreshData(): void {
@@ -163,5 +198,122 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
         this.refreshData();
       }
     }, 1000);
+  }
+
+  // Modal işlemleri
+  openCreateModal(): void {
+    this.modalError = null;
+    this.error = null;
+    this.isEditMode = false;
+    this.selectedKullanici = null;
+    this.isModalOpen = true;
+  }
+
+  openEditModal(kullanici: Kullanici): void {
+    this.modalError = null;
+    this.error = null;
+    this.isEditMode = true;
+    this.selectedKullanici = kullanici;
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.selectedKullanici = null;
+    this.isEditMode = false;
+    this.modalError = null;
+  }
+
+  onFormSubmit(formData: FormData): void {
+    this.isSaving = true;
+
+    if (this.isEditMode && this.selectedKullanici) {
+      // Update
+      this.svc.updateKullanici(this.selectedKullanici.id, formData).subscribe({
+        next: (res) => {
+          if (res && (res as any).success === false) {
+            this.error = (res as any).message || 'Kullanıcı güncellenemedi.';
+          } else {
+            this.error = null;
+            this.updateUserInLocalLists(this.selectedKullanici!.id, formData);
+            this.closeModal();
+          }
+          this.isSaving = false;
+        },
+        error: (err) => {
+          console.error('Update error', err);
+          this.error = err?.error?.message || err?.message || 'Güncelleme sırasında hata oluştu.';
+          this.isSaving = false;
+        }
+      });
+    } else {
+      // Create
+      this.svc.createKullanici(formData).subscribe({
+        next: (res) => {
+          if (res && (res as any).success === false) {
+            this.error = (res as any).message || 'Kullanıcı eklenemedi.';
+          } else {
+            this.error = null;
+            const newKullanici: Kullanici = {
+              id: res.data,
+              isim: formData.isim,
+              email: formData.email,
+              kayitTarihi: new Date().toISOString()
+            };
+            this.addUserToLocalLists(newKullanici);
+            this.closeModal();
+          }
+          this.isSaving = false;
+        },
+        error: (err) => {
+          console.error('Create error', err);
+          this.error = err?.error?.message || err?.message || 'Ekleme sırasında hata oluştu.';
+          this.isSaving = false;
+        }
+      });
+    }
+  }
+
+  private addUserToLocalLists(user: Kullanici): void {
+    this.users.push(user);
+    if (this.shouldShowUser(user)) {
+      this.filteredUsers.push(user);
+    }
+  }
+
+  private updateUserInLocalLists(id: number, formData: FormData): void {
+    const updateInList = (list: Kullanici[]) => {
+      const index = list.findIndex(u => u.id === id);
+      if (index >= 0) {
+        list[index] = {
+          ...list[index],
+          isim: formData.isim,
+          email: formData.email
+        };
+      }
+    };
+
+    updateInList(this.users);
+    updateInList(this.filteredUsers);
+  }
+
+  private shouldShowUser(user: Kullanici): boolean {
+    if (this.searchName && this.searchName.toString().trim()) {
+      const id = Number(this.searchName);
+      return Number.isInteger(id) && user.id === id;
+    }
+
+    return Object.entries(this.filters).every(([key, value]) => {
+      if (!value) {
+        return true;
+      }
+
+      const fieldValue = (user as any)[key];
+      if (key === 'kayitTarihi') {
+        return fieldValue ? new Date(fieldValue).toLocaleDateString().includes(value) : false;
+      }
+
+      return fieldValue?.toString().toLowerCase().includes(value.toLowerCase());
+    });
   }
 }

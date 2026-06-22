@@ -30,4 +30,18 @@ export class EnglishLearningService {
     const url = `${ENDPOINTS.KULLANICILAR}/${id}`;
     return this.http.get<ApiResponse<Kullanici>>(url);
   }
+
+  createKullanici(dto: { isim: string; email: string }): Observable<ApiResponse<number>> {
+    return this.http.post<ApiResponse<number>>(ENDPOINTS.KULLANICILAR, dto);
+  }
+
+  updateKullanici(id: number, dto: { isim: string; email: string }): Observable<ApiResponse<boolean>> {
+    const url = `${ENDPOINTS.KULLANICILAR}/${id}`;
+    return this.http.put<ApiResponse<boolean>>(url, dto);
+  }
+
+  deleteKullanici(id: number): Observable<ApiResponse<boolean>> {
+    const url = `${ENDPOINTS.KULLANICILAR}/${id}`;
+    return this.http.delete<ApiResponse<boolean>>(url);
+  }
 }

@@ -21,7 +21,7 @@
           <i class="refresh-icon">🔄</i>
           Yenile
         </button>
-        <button class="add-btn">
+        <button (click)="openCreateModal()" class="add-btn">
           <i class="add-icon">➕</i>
           Yeni Kayıt
         </button>
@@ -112,11 +112,12 @@
           <td>{{ u.email }}</td>
           <td>{{ u.kayitTarihi | date:'dd.MM.yyyy HH:mm' }}</td>
           <td class="row-actions">
-            <button class="action-btn edit-btn" aria-label="Güncelle">
+            <button class="action-btn edit-btn" (click)="openEditModal(u)" aria-label="Güncelle">
               <i class="edit-icon">✏️</i>
             </button>
-            <button class="action-btn delete-btn" aria-label="Sil">
-              <i class="delete-icon">🗑️</i>
+            <button class="action-btn delete-btn" (click)="deleteUser(u.id)" [disabled]="deleting && deleteId === u.id" aria-label="Sil">
+              <i class="delete-icon" *ngIf="!(deleting && deleteId === u.id)">🗑️</i>
+              <span *ngIf="deleting && deleteId === u.id" class="deleting-spinner">⏳</span>
             </button>
           </td>
         </tr>
@@ -129,3 +130,15 @@
     <p class="total-count">Toplam {{ filteredUsers.length }} kullanıcı gösteriliyor</p>
   </div>
 </div>
+
+<!-- Modal Component -->
+<app-kullanici-form-modal
+  *ngIf="isModalOpen"
+  [isOpen]="isModalOpen"
+  [isEditMode]="isEditMode"
+  [kullanici]="selectedKullanici"
+  [loading]="isSaving"
+  [serverError]="modalError"
+  (close)="closeModal()"
+  (submit)="onFormSubmit($event)"
+></app-kullanici-form-modal>
