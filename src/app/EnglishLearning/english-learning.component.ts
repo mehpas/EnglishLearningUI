@@ -5,11 +5,10 @@ import { EnglishLearningService, Kullanici } from '../services/english-learning.
 import { KullaniciFormModalComponent, FormData } from './kullanici-form-modal.component';
 
 @Component({
-  selector: 'app-english-learning',
-  standalone: true,
-  imports: [CommonModule, FormsModule, KullaniciFormModalComponent],
-  templateUrl: './english-learning.component.html',
-  styleUrls: ['./english-learning.component.scss']
+    selector: 'app-english-learning',
+    imports: [CommonModule, FormsModule, KullaniciFormModalComponent],
+    templateUrl: './english-learning.component.html',
+    styleUrls: ['./english-learning.component.scss']
 })
 export class EnglishLearningComponent implements OnInit, OnDestroy {
   users: Kullanici[] = [];

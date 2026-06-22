@@ -9,11 +9,10 @@ export interface FormData {
 }
 
 @Component({
-  selector: 'app-kullanici-form-modal',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './kullanici-form-modal.component.html',
-  styleUrls: ['./kullanici-form-modal.component.scss']
+    selector: 'app-kullanici-form-modal',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './kullanici-form-modal.component.html',
+    styleUrls: ['./kullanici-form-modal.component.scss']
 })
 export class KullaniciFormModalComponent implements OnInit {
   @Input() isOpen = false;
