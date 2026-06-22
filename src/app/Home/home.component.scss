@@ -1,0 +1,137 @@
+:host {
+  display: block;
+  padding: 2rem 1.5rem;
+}
+
+.hero {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.hero-content {
+  max-width: 520px;
+}
+
+.eyebrow {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin-bottom: 0.75rem;
+  color: #726fd8;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  line-height: 1.05;
+  color: #111827;
+}
+
+.subtitle {
+  margin: 1rem 0 1.5rem;
+  max-width: 560px;
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.primary-button {
+  background: #6366f1;
+  color: white;
+}
+
+.secondary-button {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.hero-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel-card {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.04);
+}
+
+.panel-card--accent {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.panel-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #4338ca;
+}
+
+.panel-card strong {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.features {
+  padding: 2rem 0;
+}
+
+.features h2 {
+  margin: 0 0 1rem;
+  font-size: 1.75rem;
+  color: #111827;
+}
+
+.cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.card h3 {
+  margin: 0 0 0.5rem;
+  color: #111827;
+}
+
+.card p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}

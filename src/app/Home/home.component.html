@@ -1,0 +1,34 @@
+<section class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">English Learning UI</p>
+    <h1>İngilizce öğrenmeye bugün başlayın.</h1>
+    <p class="subtitle">Kısa dersler, pratik cümleler ve günlük kelime kartlarıyla öğrenin.</p>
+    <div class="hero-actions">
+      <a routerLink="/" class="primary-button">Başlayın</a>
+      <a routerLink="/" class="secondary-button">Hakkında</a>
+      <a routerLink="/english-learning" class="primary-button">English Learning</a>
+    </div>
+  </div>
+
+  <div class="hero-panel">
+    <div class="panel-card">
+      <h2>Günlük Kelime</h2>
+      <strong>Curious</strong>
+      <p>Meraklı, öğrenmeye açık.</p>
+    </div>
+    <div class="panel-card panel-card--accent">
+      <h2>Önerilen Test</h2>
+      <p>3 dakikalık kelime pratiği ile hafızanızı güçlendirin.</p>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Öne Çıkan İçerikler</h2>
+  <div class="cards">
+    <article class="card" *ngFor="let feature of features">
+      <h3>{{ feature.title }}</h3>
+      <p>{{ feature.description }}</p>
+    </article>
+  </div>
+</section>
