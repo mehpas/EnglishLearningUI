@@ -1,29 +1,29 @@
 <div class="container">
   <div class="header">
-    <h1>Kullanıcı Listesi</h1>
+    <h1>{{ 'englishLearning.title' | translate }}</h1>
     <div class="search-section">
       <div class="search-box">
         <input 
           type="text" 
           [(ngModel)]="searchName" 
-          placeholder="ID girin..."
+          [placeholder]="'englishLearning.searchPlaceholder' | translate"
           class="search-input"
           (keyup.enter)="onSearch()"
         >
         <button (click)="onSearch()" class="search-btn">
           <i class="search-icon">🔍</i>
-          Ara
+          {{ 'englishLearning.search' | translate }}
         </button>
         <button (click)="clearSearch()" class="clear-btn">
-          Temizle
+          {{ 'englishLearning.clear' | translate }}
         </button>
         <button (click)="refreshData()" class="refresh-btn">
           <i class="refresh-icon">🔄</i>
-          Yenile
+          {{ 'englishLearning.refresh' | translate }}
         </button>
         <button (click)="openCreateModal()" class="add-btn">
           <i class="add-icon">➕</i>
-          Yeni Kayıt
+          {{ 'englishLearning.newRecord' | translate }}
         </button>
       </div>
     </div>
@@ -32,11 +32,11 @@
   <!-- Otomatik Yenileme Bilgisi -->
   <div class="refresh-info">
     <div class="refresh-status">
-      <span class="refresh-label">Son Yenileme:</span>
+      <span class="refresh-label">{{ 'englishLearning.lastRefresh' | translate }}</span>
       <span class="refresh-time">{{ lastRefreshTime | date:'HH:mm:ss' }}</span>
     </div>
     <div class="countdown-section">
-      <span class="countdown-label">Sonraki Yenileme:</span>
+      <span class="countdown-label">{{ 'englishLearning.nextRefresh' | translate }}</span>
       <span class="countdown-timer" [class.warning]="countdown <= 10">
         {{ countdown }}s
       </span>
@@ -49,7 +49,7 @@
 
   <div class="loading" *ngIf="loading">
     <div class="spinner"></div>
-    <p>Kullanıcı verileri yükleniyor...</p>
+    <p>{{ 'englishLearning.loading' | translate }}</p>
   </div>
 
   <!-- 📊 Tablo Alanı -->
@@ -63,7 +63,7 @@
               type="text" 
               [(ngModel)]="filters.id" 
               (input)="applyFilters()"
-              placeholder="ID filtrele..."
+              [placeholder]="'englishLearning.filters.id' | translate"
               class="filter-input"
             >
           </th>
@@ -72,7 +72,7 @@
               type="text" 
               [(ngModel)]="filters.isim" 
               (input)="applyFilters()"
-              placeholder="İsim filtrele..."
+              [placeholder]="'englishLearning.filters.name' | translate"
               class="filter-input"
             >
           </th>
@@ -81,7 +81,7 @@
               type="text" 
               [(ngModel)]="filters.email" 
               (input)="applyFilters()"
-              placeholder="Email filtrele..."
+              [placeholder]="'englishLearning.filters.email' | translate"
               class="filter-input"
             >
           </th>
@@ -90,7 +90,7 @@
               type="text" 
               [(ngModel)]="filters.kayitTarihi" 
               (input)="applyFilters()"
-              placeholder="Tarih filtrele..."
+              [placeholder]="'englishLearning.filters.date' | translate"
               class="filter-input"
             >
           </th>
@@ -98,11 +98,11 @@
 
         <!-- Header satırı -->
         <tr class="header-row">
-          <th (click)="sortBy('id')">ID <span class="sort-icon">↕</span></th>
-          <th (click)="sortBy('isim')">İsim <span class="sort-icon">↕</span></th>
-          <th (click)="sortBy('email')">Email <span class="sort-icon">↕</span></th>
-          <th (click)="sortBy('kayitTarihi')">Kayıt Tarihi <span class="sort-icon">↕</span></th>
-          <th>Aksiyonlar</th>
+          <th (click)="sortBy('id')">{{ 'englishLearning.table.id' | translate }} <span class="sort-icon">↕</span></th>
+          <th (click)="sortBy('isim')">{{ 'englishLearning.table.name' | translate }} <span class="sort-icon">↕</span></th>
+          <th (click)="sortBy('email')">{{ 'englishLearning.table.email' | translate }} <span class="sort-icon">↕</span></th>
+          <th (click)="sortBy('kayitTarihi')">{{ 'englishLearning.table.registrationDate' | translate }} <span class="sort-icon">↕</span></th>
+          <th>{{ 'englishLearning.table.actions' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -112,10 +112,10 @@
           <td>{{ u.email }}</td>
           <td>{{ u.kayitTarihi | date:'dd.MM.yyyy HH:mm' }}</td>
           <td class="row-actions">
-            <button class="action-btn edit-btn" (click)="openEditModal(u)" aria-label="Güncelle">
+            <button class="action-btn edit-btn" (click)="openEditModal(u)" [attr.aria-label]="'englishLearning.editAria' | translate">
               <i class="edit-icon">✏️</i>
             </button>
-            <button class="action-btn delete-btn" (click)="deleteUser(u.id)" [disabled]="deleting && deleteId === u.id" aria-label="Sil">
+            <button class="action-btn delete-btn" (click)="deleteUser(u.id)" [disabled]="deleting && deleteId === u.id" [attr.aria-label]="'englishLearning.deleteAria' | translate">
               <i class="delete-icon" *ngIf="!(deleting && deleteId === u.id)">🗑️</i>
               <span *ngIf="deleting && deleteId === u.id" class="deleting-spinner">⏳</span>
             </button>
@@ -123,11 +123,11 @@
         </tr>
       </tbody>
     </table>
-    <p *ngIf="!filteredUsers.length && !loading && !error" class="no-data">Tablo boş - Veri yüklenecek</p>
+    <p *ngIf="!filteredUsers.length && !loading && !error" class="no-data">{{ 'englishLearning.noData' | translate }}</p>
   </div>
 
   <div class="info-section" *ngIf="!loading && filteredUsers.length > 0">
-    <p class="total-count">Toplam {{ filteredUsers.length }} kullanıcı gösteriliyor</p>
+    <p class="total-count">{{ 'englishLearning.totalCount' | translate:{ count: filteredUsers.length } }}</p>
   </div>
 </div>
 

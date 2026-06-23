@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EnglishLearningService, Kullanici } from '../services/english-learning.service';
 import { KullaniciFormModalComponent, FormData } from './kullanici-form-modal.component';
+import { TranslatePipe } from '../pipes/translate.pipe';
+import { TranslationService } from '../services/translation.service';
 
 @Component({
     selector: 'app-english-learning',
-    imports: [CommonModule, FormsModule, KullaniciFormModalComponent],
+  imports: [CommonModule, FormsModule, KullaniciFormModalComponent, TranslatePipe],
     templateUrl: './english-learning.component.html',
     styleUrls: ['./english-learning.component.scss']
 })
@@ -43,7 +45,10 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   countdown = 120;
   private countdownInterval: any;
 
-  constructor(private svc: EnglishLearningService) {}
+  constructor(
+    private svc: EnglishLearningService,
+    private translationService: TranslationService
+  ) {}
 
   ngOnInit(): void {
     this.search();
@@ -57,13 +62,13 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(id: number): void {
-    if (confirm(`ID: ${id} olan kullanıcıyı silmek istediğinize emin misiniz?`)) {
+    if (confirm(this.t('messages.confirmDelete', { id }))) {
       this.deleting = true;
       this.deleteId = id;
       this.svc.deleteKullanici(id).subscribe({
         next: (res) => {
           if (res && (res as any).success === false) {
-            this.error = (res as any).message || 'Kullanıcı silinemedi.';
+            this.error = (res as any).message || this.t('messages.deleteFailed');
           } else {
             this.error = null;
             this.search();
@@ -73,7 +78,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.error('Delete error', err);
-          this.error = err?.error?.message || err?.message || 'Silme işlemi sırasında hata oluştu.';
+          this.error = err?.error?.message || err?.message || this.t('messages.deleteError');
           this.deleting = false;
           this.deleteId = null;
         }
@@ -87,7 +92,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
     this.svc.getKullanicilar().subscribe({
       next: (res) => {
         if (res && (res as any).success === false) {
-          this.error = (res as any).message || 'Veri alınamadı.';
+          this.error = (res as any).message || this.t('messages.fetchFailed');
           this.users = [];
           this.filteredUsers = [];
         } else {
@@ -100,10 +105,9 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
       error: (err) => {
         console.error('API error', err);
         if (err.status === 0) {
-          this.error = 'Sunucuya bağlanamadı. Lütfen internet bağlantınızı kontrol edin ya da proxy yapılandırmasını kullanın.';
+          this.error = this.t('messages.serverUnreachable');
         } else {
-          // Try to show server-provided message if present
-          this.error = err?.error?.message || err?.message || 'Veri alınırken hata oluştu.';
+          this.error = err?.error?.message || err?.message || this.t('messages.fetchError');
         }
         this.loading = false;
       }
@@ -119,7 +123,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
 
     const id = Number(this.searchName);
     if (!Number.isInteger(id) || id <= 0) {
-      this.error = 'Lütfen geçerli bir ID girin.';
+      this.error = this.t('messages.invalidId');
       this.filteredUsers = [];
       return;
     }
@@ -129,7 +133,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
     this.svc.getKullaniciById(id).subscribe({
       next: (res) => {
         if (res && (res as any).success === false) {
-          this.error = (res as any).message || 'Kullanıcı bulunamadı.';
+          this.error = (res as any).message || this.t('messages.userNotFound');
           this.filteredUsers = [];
         } else {
           const u = res.data ? [res.data] : [];
@@ -138,7 +142,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
       error: (err) => {
-        this.error = err?.error?.message || err?.message || 'Kullanıcı bulunamadı veya hata oluştu.';
+        this.error = err?.error?.message || err?.message || this.t('messages.userLookupError');
         this.filteredUsers = [];
         this.loading = false;
       }
@@ -231,7 +235,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
       this.svc.updateKullanici(this.selectedKullanici.id, formData).subscribe({
         next: (res) => {
           if (res && (res as any).success === false) {
-            this.error = (res as any).message || 'Kullanıcı güncellenemedi.';
+            this.error = (res as any).message || this.t('messages.updateFailed');
           } else {
             this.error = null;
             this.updateUserInLocalLists(this.selectedKullanici!.id, formData);
@@ -241,7 +245,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.error('Update error', err);
-          this.error = err?.error?.message || err?.message || 'Güncelleme sırasında hata oluştu.';
+          this.error = err?.error?.message || err?.message || this.t('messages.updateError');
           this.isSaving = false;
         }
       });
@@ -250,7 +254,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
       this.svc.createKullanici(formData).subscribe({
         next: (res) => {
           if (res && (res as any).success === false) {
-            this.error = (res as any).message || 'Kullanıcı eklenemedi.';
+            this.error = (res as any).message || this.t('messages.createFailed');
           } else {
             this.error = null;
             const newKullanici: Kullanici = {
@@ -266,7 +270,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.error('Create error', err);
-          this.error = err?.error?.message || err?.message || 'Ekleme sırasında hata oluştu.';
+          this.error = err?.error?.message || err?.message || this.t('messages.createError');
           this.isSaving = false;
         }
       });
@@ -314,5 +318,9 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
 
       return fieldValue?.toString().toLowerCase().includes(value.toLowerCase());
     });
+  }
+
+  private t(key: string, params?: Record<string, string | number>): string {
+    return this.translationService.translate(key, params);
   }
 }

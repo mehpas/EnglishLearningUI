@@ -2,6 +2,8 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Kullanici } from '../services/english-learning.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
+import { TranslationService } from '../services/translation.service';
 
 export interface FormData {
   isim: string;
@@ -10,7 +12,7 @@ export interface FormData {
 
 @Component({
     selector: 'app-kullanici-form-modal',
-    imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
     templateUrl: './kullanici-form-modal.component.html',
     styleUrls: ['./kullanici-form-modal.component.scss']
 })
@@ -29,6 +31,8 @@ export class KullaniciFormModalComponent implements OnInit {
   };
 
   errors: { [key: string]: string } = {};
+
+  constructor(private translationService: TranslationService) {}
 
   ngOnInit(): void {
     if (this.isEditMode && this.kullanici) {
@@ -54,17 +58,17 @@ export class KullaniciFormModalComponent implements OnInit {
     this.errors = {};
 
     if (!this.formData.isim || !this.formData.isim.trim()) {
-      this.errors['isim'] = 'İsim alanı gereklidir.';
+      this.errors['isim'] = this.t('validation.nameRequired');
     } else if (this.formData.isim.length > 100) {
-      this.errors['isim'] = 'İsim 100 karakterden fazla olamaz.';
+      this.errors['isim'] = this.t('validation.nameMaxLength');
     }
 
     if (!this.formData.email || !this.formData.email.trim()) {
-      this.errors['email'] = 'Email alanı gereklidir.';
+      this.errors['email'] = this.t('validation.emailRequired');
     } else if (!this.isValidEmail(this.formData.email)) {
-      this.errors['email'] = 'Geçerli bir email adresi girin.';
+      this.errors['email'] = this.t('validation.invalidEmail');
     } else if (this.formData.email.length > 150) {
-      this.errors['email'] = 'Email 150 karakterden fazla olamaz.';
+      this.errors['email'] = this.t('validation.emailMaxLength');
     }
 
     return Object.keys(this.errors).length === 0;
@@ -81,5 +85,9 @@ export class KullaniciFormModalComponent implements OnInit {
       email: ''
     };
     this.errors = {};
+  }
+
+  private t(key: string): string {
+    return this.translationService.translate(key);
   }
 }

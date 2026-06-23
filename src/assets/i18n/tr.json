@@ -1,0 +1,100 @@
+{
+  "common": {
+    "language": "Dil",
+    "turkish": "TR",
+    "english": "EN"
+  },
+  "home": {
+    "eyebrow": "English Learning UI",
+    "title": "Ingilizce ogrenmeye bugun baslayin.",
+    "subtitle": "Kisa dersler, pratik cumleler ve gunluk kelime kartlariyla ogrenin.",
+    "start": "Baslayin",
+    "about": "Hakkinda",
+    "englishLearning": "English Learning",
+    "dailyWord": {
+      "title": "Gunluk Kelime",
+      "word": "Curious",
+      "description": "Merakli, ogrenmeye acik."
+    },
+    "recommendedTest": {
+      "title": "Onerilen Test",
+      "description": "3 dakikalik kelime pratigi ile hafizanizi guclendirin."
+    },
+    "featuresTitle": "One Cikan Icerikler",
+    "features": {
+      "vocabulary": {
+        "title": "Kelime Ogrenme",
+        "description": "Her gun yeni kelimeler kesfedin ve anlamlarini ogrenin."
+      },
+      "sentences": {
+        "title": "Cumle Uygulamalari",
+        "description": "Pratik cumlelerle dil bilginizi gelistirin."
+      },
+      "quizzes": {
+        "title": "Kisa Testler",
+        "description": "Hafizanizi taze tutmak icin hizli testler yapin."
+      }
+    }
+  },
+  "englishLearning": {
+    "title": "Kullanici Listesi",
+    "searchPlaceholder": "ID girin...",
+    "search": "Ara",
+    "clear": "Temizle",
+    "refresh": "Yenile",
+    "newRecord": "Yeni Kayit",
+    "lastRefresh": "Son Yenileme:",
+    "nextRefresh": "Sonraki Yenileme:",
+    "loading": "Kullanici verileri yukleniyor...",
+    "filters": {
+      "id": "ID filtrele...",
+      "name": "Isim filtrele...",
+      "email": "Email filtrele...",
+      "date": "Tarih filtrele..."
+    },
+    "table": {
+      "id": "ID",
+      "name": "Isim",
+      "email": "Email",
+      "registrationDate": "Kayit Tarihi",
+      "actions": "Aksiyonlar"
+    },
+    "editAria": "Guncelle",
+    "deleteAria": "Sil",
+    "noData": "Tablo bos - Veri yuklenecek",
+    "totalCount": "Toplam {{count}} kullanici gosteriliyor"
+  },
+  "modal": {
+    "editTitle": "Kullanici Guncelle",
+    "createTitle": "Yeni Kullanici Ekle",
+    "nameLabel": "Isim *",
+    "emailLabel": "Email *",
+    "namePlaceholder": "Kullanici adini girin",
+    "emailPlaceholder": "Email adresini girin",
+    "cancel": "Iptal",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor..."
+  },
+  "messages": {
+    "confirmDelete": "ID: {{id}} olan kullaniciyi silmek istediginize emin misiniz?",
+    "deleteFailed": "Kullanici silinemedi.",
+    "deleteError": "Silme islemi sirasinda hata olustu.",
+    "fetchFailed": "Veri alinamadi.",
+    "serverUnreachable": "Sunucuya baglanamadi. Lutfen internet baglantinizi kontrol edin ya da proxy yapilandirmasini kullanin.",
+    "fetchError": "Veri alinirken hata olustu.",
+    "invalidId": "Lutfen gecerli bir ID girin.",
+    "userNotFound": "Kullanici bulunamadi.",
+    "userLookupError": "Kullanici bulunamadi veya hata olustu.",
+    "updateFailed": "Kullanici guncellenemedi.",
+    "updateError": "Guncelleme sirasinda hata olustu.",
+    "createFailed": "Kullanici eklenemedi.",
+    "createError": "Ekleme sirasinda hata olustu."
+  },
+  "validation": {
+    "nameRequired": "Isim alani gereklidir.",
+    "nameMaxLength": "Isim 100 karakterden fazla olamaz.",
+    "emailRequired": "Email alani gereklidir.",
+    "invalidEmail": "Gecerli bir email adresi girin.",
+    "emailMaxLength": "Email 150 karakterden fazla olamaz."
+  }
+}

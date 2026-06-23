@@ -1,0 +1,39 @@
+.app-shell {
+	min-height: 100vh;
+}
+
+.app-toolbar {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 24px 0;
+}
+
+.language-label {
+	font-size: 14px;
+	font-weight: 600;
+	color: #234;
+}
+
+.language-switcher {
+	display: inline-flex;
+	gap: 8px;
+}
+
+.language-button {
+	border: 1px solid #c8d2dc;
+	background: #fff;
+	color: #234;
+	border-radius: 999px;
+	padding: 8px 14px;
+	font-size: 13px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.language-button.active {
+	background: #234;
+	border-color: #234;
+	color: #fff;
+}

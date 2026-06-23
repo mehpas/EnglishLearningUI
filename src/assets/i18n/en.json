@@ -1,0 +1,100 @@
+{
+  "common": {
+    "language": "Language",
+    "turkish": "TR",
+    "english": "EN"
+  },
+  "home": {
+    "eyebrow": "English Learning UI",
+    "title": "Start learning English today.",
+    "subtitle": "Learn with short lessons, practical sentences, and daily vocabulary cards.",
+    "start": "Get Started",
+    "about": "About",
+    "englishLearning": "English Learning",
+    "dailyWord": {
+      "title": "Word of the Day",
+      "word": "Curious",
+      "description": "Eager to learn and explore."
+    },
+    "recommendedTest": {
+      "title": "Recommended Exercise",
+      "description": "Strengthen your memory with a 3-minute vocabulary drill."
+    },
+    "featuresTitle": "Featured Content",
+    "features": {
+      "vocabulary": {
+        "title": "Vocabulary Practice",
+        "description": "Discover new words every day and learn what they mean."
+      },
+      "sentences": {
+        "title": "Sentence Exercises",
+        "description": "Improve your language skills with practical sentence work."
+      },
+      "quizzes": {
+        "title": "Quick Quizzes",
+        "description": "Keep your memory fresh with short practice tests."
+      }
+    }
+  },
+  "englishLearning": {
+    "title": "User List",
+    "searchPlaceholder": "Enter ID...",
+    "search": "Search",
+    "clear": "Clear",
+    "refresh": "Refresh",
+    "newRecord": "New Record",
+    "lastRefresh": "Last Refresh:",
+    "nextRefresh": "Next Refresh:",
+    "loading": "Loading user data...",
+    "filters": {
+      "id": "Filter ID...",
+      "name": "Filter name...",
+      "email": "Filter email...",
+      "date": "Filter date..."
+    },
+    "table": {
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "registrationDate": "Registration Date",
+      "actions": "Actions"
+    },
+    "editAria": "Edit",
+    "deleteAria": "Delete",
+    "noData": "Table is empty - data will be loaded",
+    "totalCount": "Showing {{count}} users in total"
+  },
+  "modal": {
+    "editTitle": "Update User",
+    "createTitle": "Add New User",
+    "nameLabel": "Name *",
+    "emailLabel": "Email *",
+    "namePlaceholder": "Enter user name",
+    "emailPlaceholder": "Enter email address",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving..."
+  },
+  "messages": {
+    "confirmDelete": "Are you sure you want to delete the user with ID: {{id}}?",
+    "deleteFailed": "User could not be deleted.",
+    "deleteError": "An error occurred while deleting the user.",
+    "fetchFailed": "Data could not be retrieved.",
+    "serverUnreachable": "Could not connect to the server. Please check your internet connection or use the proxy configuration.",
+    "fetchError": "An error occurred while loading data.",
+    "invalidId": "Please enter a valid ID.",
+    "userNotFound": "User could not be found.",
+    "userLookupError": "User could not be found or an error occurred.",
+    "updateFailed": "User could not be updated.",
+    "updateError": "An error occurred while updating the user.",
+    "createFailed": "User could not be added.",
+    "createError": "An error occurred while adding the user."
+  },
+  "validation": {
+    "nameRequired": "Name is required.",
+    "nameMaxLength": "Name cannot exceed 100 characters.",
+    "emailRequired": "Email is required.",
+    "invalidEmail": "Please enter a valid email address.",
+    "emailMaxLength": "Email cannot exceed 150 characters."
+  }
+}

@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
     selector: 'app-home',
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, TranslatePipe],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
   features = [
     {
-      title: 'Kelime Öğrenme',
-      description: 'Her gün yeni kelimeler keşfedin ve anlamlarını öğrenin.',
+      titleKey: 'home.features.vocabulary.title',
+      descriptionKey: 'home.features.vocabulary.description',
     },
     {
-      title: 'Cümle Uygulamaları',
-      description: 'Pratik cümlelerle dil bilginizi geliştirin.',
+      titleKey: 'home.features.sentences.title',
+      descriptionKey: 'home.features.sentences.description',
     },
     {
-      title: 'Kısa Testler',
-      description: 'Hafızanızı taze tutmak için hızlı testler yapın.',
+      titleKey: 'home.features.quizzes.title',
+      descriptionKey: 'home.features.quizzes.description',
     }
   ];
 }

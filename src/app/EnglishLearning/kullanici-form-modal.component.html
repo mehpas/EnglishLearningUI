@@ -1,7 +1,7 @@
 <div class="modal-overlay" *ngIf="isOpen" (click)="onClose()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>{{ isEditMode ? 'Kullanıcı Güncelle' : 'Yeni Kullanıcı Ekle' }}</h2>
+      <h2>{{ isEditMode ? ('modal.editTitle' | translate) : ('modal.createTitle' | translate) }}</h2>
       <button class="close-btn" (click)="onClose()" [disabled]="loading">✕</button>
     </div>
 
@@ -12,13 +12,13 @@
         </div>
         <!-- İsim Alanı -->
         <div class="form-group">
-          <label for="isim">İsim *</label>
+          <label for="isim">{{ 'modal.nameLabel' | translate }}</label>
           <input
             id="isim"
             type="text"
             [(ngModel)]="formData.isim"
             name="isim"
-            placeholder="Kullanıcı adını girin"
+            [placeholder]="'modal.namePlaceholder' | translate"
             [disabled]="loading"
             class="form-input"
             [class.error]="errors['isim']"
@@ -28,13 +28,13 @@
 
         <!-- Email Alanı -->
         <div class="form-group">
-          <label for="email">Email *</label>
+          <label for="email">{{ 'modal.emailLabel' | translate }}</label>
           <input
             id="email"
             type="email"
             [(ngModel)]="formData.email"
             name="email"
-            placeholder="Email adresini girin"
+            [placeholder]="'modal.emailPlaceholder' | translate"
             [disabled]="loading"
             class="form-input"
             [class.error]="errors['email']"
@@ -46,10 +46,10 @@
 
     <div class="modal-footer">
       <button class="btn btn-cancel" (click)="onClose()" [disabled]="loading">
-        İptal
+        {{ 'modal.cancel' | translate }}
       </button>
       <button class="btn btn-submit" (click)="onSubmit()" [disabled]="loading">
-        {{ loading ? 'Kaydediliyor...' : 'Kaydet' }}
+        {{ loading ? ('modal.saving' | translate) : ('modal.save' | translate) }}
       </button>
     </div>
   </div>
