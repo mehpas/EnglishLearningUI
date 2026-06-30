@@ -1,25 +1,3 @@
 ﻿<div class="app-shell">
-	<header class="app-toolbar">
-		<span class="language-label">{{ 'common.language' | translate }}</span>
-		<div class="language-switcher">
-			<button
-				type="button"
-				class="language-button"
-				[class.active]="currentLanguage() === 'tr'"
-				(click)="changeLanguage('tr')"
-			>
-				{{ 'common.turkish' | translate }}
-			</button>
-			<button
-				type="button"
-				class="language-button"
-				[class.active]="currentLanguage() === 'en'"
-				(click)="changeLanguage('en')"
-			>
-				{{ 'common.english' | translate }}
-			</button>
-		</div>
-	</header>
-
 	<router-outlet></router-outlet>
 </div>

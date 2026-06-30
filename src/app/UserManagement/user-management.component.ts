@@ -1,20 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EnglishLearningService, Kullanici } from '../services/english-learning.service';
-import { KullaniciFormModalComponent, FormData } from './kullanici-form-modal.component';
+import { UserService, User } from '../services/user.service';
+import { UserFormModalComponent, FormData } from './user-form-modal.component';
 import { TranslatePipe } from '../pipes/translate.pipe';
 import { TranslationService } from '../services/translation.service';
 
 @Component({
-    selector: 'app-english-learning',
-  imports: [CommonModule, FormsModule, KullaniciFormModalComponent, TranslatePipe],
-    templateUrl: './english-learning.component.html',
-    styleUrls: ['./english-learning.component.scss']
+    selector: 'app-user-management',
+  imports: [CommonModule, FormsModule, UserFormModalComponent, TranslatePipe],
+    templateUrl: './user-management.component.html',
+    styleUrls: ['./user-management.component.scss']
 })
-export class EnglishLearningComponent implements OnInit, OnDestroy {
-  users: Kullanici[] = [];
-  filteredUsers: Kullanici[] = [];
+export class UserManagementComponent implements OnInit, OnDestroy {
+  users: User[] = [];
+  filteredUsers: User[] = [];
   loading = false;
   error: string | null = null;
   deleting = false;
@@ -24,7 +24,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   // Modal state'leri
   isModalOpen = false;
   isEditMode = false;
-  selectedKullanici: Kullanici | null = null;
+  selectedKullanici: User | null = null;
   isSaving = false;
   
   // Arama ve filtre değişkenleri
@@ -46,7 +46,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   private countdownInterval: any;
 
   constructor(
-    private svc: EnglishLearningService,
+    private svc: UserService,
     private translationService: TranslationService
   ) {}
 
@@ -65,7 +65,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
     if (confirm(this.t('messages.confirmDelete', { id }))) {
       this.deleting = true;
       this.deleteId = id;
-      this.svc.deleteKullanici(id).subscribe({
+      this.svc.deleteUser(id).subscribe({
         next: (res) => {
           if (res && (res as any).success === false) {
             this.error = (res as any).message || this.t('messages.deleteFailed');
@@ -89,7 +89,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   search() {
     this.loading = true;
     this.error = null;
-    this.svc.getKullanicilar().subscribe({
+    this.svc.getUsers().subscribe({
       next: (res) => {
         if (res && (res as any).success === false) {
           this.error = (res as any).message || this.t('messages.fetchFailed');
@@ -130,7 +130,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
 
     this.loading = true;
     this.error = null;
-    this.svc.getKullaniciById(id).subscribe({
+    this.svc.getUserById(id).subscribe({
       next: (res) => {
         if (res && (res as any).success === false) {
           this.error = (res as any).message || this.t('messages.userNotFound');
@@ -180,8 +180,8 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
     }
 
     this.filteredUsers.sort((a, b) => {
-      let aVal: any = a[column as keyof Kullanici];
-      let bVal: any = b[column as keyof Kullanici];
+      let aVal: any = a[column as keyof User];
+      let bVal: any = b[column as keyof User];
 
       if (typeof aVal === 'string') {
         aVal = aVal.toLowerCase();
@@ -212,7 +212,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
     this.isModalOpen = true;
   }
 
-  openEditModal(kullanici: Kullanici): void {
+  openEditModal(kullanici: User): void {
     this.modalError = null;
     this.error = null;
     this.isEditMode = true;
@@ -232,7 +232,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
 
     if (this.isEditMode && this.selectedKullanici) {
       // Update
-      this.svc.updateKullanici(this.selectedKullanici.id, formData).subscribe({
+      this.svc.updateUser(this.selectedKullanici.id, formData).subscribe({
         next: (res) => {
           if (res && (res as any).success === false) {
             this.error = (res as any).message || this.t('messages.updateFailed');
@@ -251,13 +251,13 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
       });
     } else {
       // Create
-      this.svc.createKullanici(formData).subscribe({
+      this.svc.createUser(formData).subscribe({
         next: (res) => {
           if (res && (res as any).success === false) {
             this.error = (res as any).message || this.t('messages.createFailed');
           } else {
             this.error = null;
-            const newKullanici: Kullanici = {
+            const newKullanici: User = {
               id: res.data,
               isim: formData.isim,
               email: formData.email,
@@ -277,7 +277,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
     }
   }
 
-  private addUserToLocalLists(user: Kullanici): void {
+  private addUserToLocalLists(user: User): void {
     this.users.push(user);
     if (this.shouldShowUser(user)) {
       this.filteredUsers.push(user);
@@ -285,7 +285,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
   }
 
   private updateUserInLocalLists(id: number, formData: FormData): void {
-    const updateInList = (list: Kullanici[]) => {
+    const updateInList = (list: User[]) => {
       const index = list.findIndex(u => u.id === id);
       if (index >= 0) {
         list[index] = {
@@ -300,7 +300,7 @@ export class EnglishLearningComponent implements OnInit, OnDestroy {
     updateInList(this.filteredUsers);
   }
 
-  private shouldShowUser(user: Kullanici): boolean {
+  private shouldShowUser(user: User): boolean {
     if (this.searchName && this.searchName.toString().trim()) {
       const id = Number(this.searchName);
       return Number.isInteger(id) && user.id === id;

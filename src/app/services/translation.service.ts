@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ApplicationRef, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -16,11 +16,14 @@ export class TranslationService {
   private currentLanguageValue = this.fallbackLanguage;
   private translations: TranslationDictionary = {};
 
-  constructor(private http: HttpClient) {}
+  private appReady = false;
+
+  constructor(private http: HttpClient, private appRef: ApplicationRef) {}
 
   async initialize(): Promise<void> {
     const initialLanguage = this.getInitialLanguage();
     await this.setLanguage(initialLanguage);
+    this.appReady = true;
   }
 
   async setLanguage(language: string): Promise<void> {
@@ -30,13 +33,21 @@ export class TranslationService {
       this.translations = await this.loadTranslations(normalizedLanguage);
       this.currentLanguageValue = normalizedLanguage;
       localStorage.setItem(this.storageKey, normalizedLanguage);
-    } catch {
+    } catch (error: unknown) {
       if (normalizedLanguage !== this.fallbackLanguage) {
-        this.translations = await this.loadTranslations(this.fallbackLanguage);
+        try {
+          this.translations = await this.loadTranslations(this.fallbackLanguage);
+        } catch {
+          // Fallback also failed, keep existing translations
+        }
       }
 
       this.currentLanguageValue = this.fallbackLanguage;
       localStorage.setItem(this.storageKey, this.fallbackLanguage);
+    }
+
+    if (this.appReady) {
+      this.appRef.tick();
     }
   }
 

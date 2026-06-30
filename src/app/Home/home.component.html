@@ -6,7 +6,50 @@
     <div class="hero-actions">
       <a routerLink="/" class="primary-button">{{ 'home.start' | translate }}</a>
       <a routerLink="/" class="secondary-button">{{ 'home.about' | translate }}</a>
-      <a routerLink="/english-learning" class="primary-button">{{ 'home.englishLearning' | translate }}</a>
+    </div>
+
+    <div class="login-card">
+      <div class="login-card-header">
+        <span class="language-label">{{ 'common.language' | translate }}</span>
+        <select class="language-select" [(ngModel)]="selectedLanguage" (ngModelChange)="changeLanguage($event)">
+          <option value="tr">{{ 'common.turkish' | translate }}</option>
+          <option value="en">{{ 'common.english' | translate }}</option>
+        </select>
+      </div>
+      <div class="login-fields">
+        <div class="form-group">
+          <label for="kullaniciId">{{ 'home.login.idLabel' | translate }}</label>
+          <input
+            id="kullaniciId"
+            type="number"
+            [(ngModel)]="loginKullaniciId"
+            [placeholder]="'home.login.idPlaceholder' | translate"
+            class="login-input"
+            min="1"
+          />
+        </div>
+        <div class="form-group">
+          <label for="sifre">{{ 'home.login.passwordLabel' | translate }}</label>
+          <input
+            id="sifre"
+            type="password"
+            [(ngModel)]="loginSifre"
+            [placeholder]="'home.login.passwordPlaceholder' | translate"
+            class="login-input"
+            autocomplete="current-password"
+          />
+        </div>
+      </div>
+      <div *ngIf="loginHata" class="login-error" role="alert">
+        {{ loginHata | translate }}
+      </div>
+      <button
+        class="primary-button login-button"
+        (click)="goToEnglishLearning()"
+        [disabled]="loginYukleniyor"
+      >
+        {{ loginYukleniyor ? ('home.login.loading' | translate) : ('home.englishLearning' | translate) }}
+      </button>
     </div>
   </div>
 

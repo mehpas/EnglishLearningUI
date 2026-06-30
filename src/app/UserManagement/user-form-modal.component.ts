@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Kullanici } from '../services/english-learning.service';
+import { User } from '../services/user.service';
 import { TranslatePipe } from '../pipes/translate.pipe';
 import { TranslationService } from '../services/translation.service';
 
@@ -11,15 +11,15 @@ export interface FormData {
 }
 
 @Component({
-    selector: 'app-kullanici-form-modal',
+    selector: 'app-user-form-modal',
   imports: [CommonModule, FormsModule, TranslatePipe],
-    templateUrl: './kullanici-form-modal.component.html',
-    styleUrls: ['./kullanici-form-modal.component.scss']
+    templateUrl: './user-form-modal.component.html',
+    styleUrls: ['./user-form-modal.component.scss']
 })
-export class KullaniciFormModalComponent implements OnInit {
+export class UserFormModalComponent implements OnInit {
   @Input() isOpen = false;
   @Input() isEditMode = false;
-  @Input() kullanici: Kullanici | null = null;
+  @Input() kullanici: User | null = null;
   @Input() loading = false;
   @Input() serverError: string | null = null;
   @Output() close = new EventEmitter<void>();

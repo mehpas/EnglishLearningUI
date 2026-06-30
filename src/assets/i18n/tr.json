@@ -1,4 +1,13 @@
 {
+  "sidebar": {
+    "englishStudies": "İngilizce Çalışmaları",
+    "userManagement": "Kullanıcı Yönetimi",
+    "logout": "Çıkış"
+  },
+  "studies": {
+    "title": "İngilizce Çalışmaları",
+    "comingSoon": "Çalışmalar başlayacak."
+  },
   "common": {
     "language": "Dil",
     "turkish": "TR",
@@ -10,7 +19,14 @@
     "subtitle": "Kisa dersler, pratik cumleler ve gunluk kelime kartlariyla ogrenin.",
     "start": "Baslayin",
     "about": "Hakkinda",
-    "englishLearning": "English Learning",
+    "englishLearning": "İngilizce Öğren",
+    "login": {
+      "idLabel": "Kullanıcı ID",
+      "passwordLabel": "Şifre",
+      "idPlaceholder": "Kullanıcı ID giriniz",
+      "passwordPlaceholder": "Şifrenizi giriniz",
+      "loading": "Doğrulanıyor..."
+    },
     "dailyWord": {
       "title": "Gunluk Kelime",
       "word": "Curious",
@@ -88,7 +104,10 @@
     "updateFailed": "Kullanici guncellenemedi.",
     "updateError": "Guncelleme sirasinda hata olustu.",
     "createFailed": "Kullanici eklenemedi.",
-    "createError": "Ekleme sirasinda hata olustu."
+    "createError": "Ekleme sirasinda hata olustu.",
+    "loginInvalidCredentials": "Kullanıcı ID veya şifre hatalı.",
+    "loginUserNotFound": "Bu ID ile kullanıcı bulunamadı.",
+    "loginError": "Giriş sırasında hata oluştu. Lütfen tekrar deneyin."
   },
   "validation": {
     "nameRequired": "Isim alani gereklidir.",

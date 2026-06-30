@@ -9,7 +9,7 @@ interface ApiResponse<T> {
   data: T;
 }
 
-export interface Kullanici {
+export interface User {
   id: number;
   isim: string;
   email: string;
@@ -19,28 +19,28 @@ export interface Kullanici {
 @Injectable({
   providedIn: 'root'
 })
-export class EnglishLearningService {
+export class UserService {
   constructor(private http: HttpClient) {}
 
-  getKullanicilar(): Observable<ApiResponse<Kullanici[]>> {
-    return this.http.get<ApiResponse<Kullanici[]>>(ENDPOINTS.KULLANICILAR);
+  getUsers(): Observable<ApiResponse<User[]>> {
+    return this.http.get<ApiResponse<User[]>>(ENDPOINTS.KULLANICILAR);
   }
 
-  getKullaniciById(id: number): Observable<ApiResponse<Kullanici>> {
+  getUserById(id: number): Observable<ApiResponse<User>> {
     const url = `${ENDPOINTS.KULLANICILAR}/${id}`;
-    return this.http.get<ApiResponse<Kullanici>>(url);
+    return this.http.get<ApiResponse<User>>(url);
   }
 
-  createKullanici(dto: { isim: string; email: string }): Observable<ApiResponse<number>> {
+  createUser(dto: { isim: string; email: string }): Observable<ApiResponse<number>> {
     return this.http.post<ApiResponse<number>>(ENDPOINTS.KULLANICILAR, dto);
   }
 
-  updateKullanici(id: number, dto: { isim: string; email: string }): Observable<ApiResponse<boolean>> {
+  updateUser(id: number, dto: { isim: string; email: string }): Observable<ApiResponse<boolean>> {
     const url = `${ENDPOINTS.KULLANICILAR}/${id}`;
     return this.http.put<ApiResponse<boolean>>(url, dto);
   }
 
-  deleteKullanici(id: number): Observable<ApiResponse<boolean>> {
+  deleteUser(id: number): Observable<ApiResponse<boolean>> {
     const url = `${ENDPOINTS.KULLANICILAR}/${id}`;
     return this.http.delete<ApiResponse<boolean>>(url);
   }

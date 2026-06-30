@@ -132,7 +132,7 @@
 </div>
 
 <!-- Modal Component -->
-<app-kullanici-form-modal
+<app-user-form-modal
   *ngIf="isModalOpen"
   [isOpen]="isModalOpen"
   [isEditMode]="isEditMode"
@@ -141,4 +141,4 @@
   [serverError]="modalError"
   (close)="closeModal()"
   (submit)="onFormSubmit($event)"
-></app-kullanici-form-modal>
+></app-user-form-modal>

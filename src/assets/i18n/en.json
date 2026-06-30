@@ -1,4 +1,13 @@
 {
+  "sidebar": {
+    "englishStudies": "English Studies",
+    "userManagement": "User Management",
+    "logout": "Logout"
+  },
+  "studies": {
+    "title": "English Studies",
+    "comingSoon": "Studies will begin here."
+  },
   "common": {
     "language": "Language",
     "turkish": "TR",
@@ -11,6 +20,13 @@
     "start": "Get Started",
     "about": "About",
     "englishLearning": "English Learning",
+    "login": {
+      "idLabel": "User ID",
+      "passwordLabel": "Password",
+      "idPlaceholder": "Enter your User ID",
+      "passwordPlaceholder": "Enter your password",
+      "loading": "Verifying..."
+    },
     "dailyWord": {
       "title": "Word of the Day",
       "word": "Curious",
@@ -88,7 +104,10 @@
     "updateFailed": "User could not be updated.",
     "updateError": "An error occurred while updating the user.",
     "createFailed": "User could not be added.",
-    "createError": "An error occurred while adding the user."
+    "createError": "An error occurred while adding the user.",
+    "loginInvalidCredentials": "Invalid User ID or password.",
+    "loginUserNotFound": "No user found with this ID.",
+    "loginError": "An error occurred during login. Please try again."
   },
   "validation": {
     "nameRequired": "Name is required.",

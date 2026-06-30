@@ -135,3 +135,119 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+.login-card {
+  margin-top: 1.75rem;
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px rgba(99, 102, 241, 0.07);
+  max-width: 480px;
+}
+
+.login-card-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.language-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.language-select {
+  border: 1.5px solid #d1d5db;
+  background: #f9fafb;
+  color: #374151;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+
+  &:focus {
+    border-color: #6366f1;
+  }
+}
+
+.login-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.login-input {
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  color: #111827;
+  background: #f9fafb;
+  transition: border-color 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #6366f1;
+    background: white;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+.login-error {
+  margin-bottom: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.login-button {
+  width: 100%;
+  justify-content: center;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 520px) {
+  .login-fields {
+    grid-template-columns: 1fr;
+  }
+}
