@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "english-learning-ui",
+  "compatibility_date": "2026-07-01",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "dist/english-learning-ui/browser"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
