@@ -1,5 +1,21 @@
 <div class="layout">
-  <aside class="sidebar">
+  <button
+    type="button"
+    class="menu-toggle"
+    [class.menu-toggle--open]="menuOpen"
+    [class.menu-toggle--hidden]="!isMobileView()"
+    (click)="toggleMenu()"
+    [attr.aria-expanded]="menuOpen"
+    aria-label="Toggle menu"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="sidebar-overlay" [class.sidebar-overlay--visible]="menuOpen && isMobileView()" (click)="closeMenu()"></div>
+
+  <aside class="sidebar" [class.sidebar--mobile-open]="menuOpen && isMobileView()">
     <div class="sidebar-brand">
       <span class="brand-icon">📘</span>
       <span class="brand-name">English Learning</span>
@@ -11,6 +27,7 @@
         routerLinkActive="nav-item--active"
         [routerLinkActiveOptions]="{ exact: true }"
         class="nav-item"
+        (click)="onNavItemClick()"
       >
         <span class="nav-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -26,6 +43,7 @@
         [routerLink]="['/english-learning/user-management']"
         routerLinkActive="nav-item--active"
         class="nav-item"
+        (click)="onNavItemClick()"
       >
         <span class="nav-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
